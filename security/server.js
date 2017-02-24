@@ -3,6 +3,7 @@
 const Hapi = require('hapi');
 const Db = require('./app/db');
 const config = require('./app/config').server;
+const endpoints = require('./routes');
 
 const server = new Hapi.Server();
 server.connection({

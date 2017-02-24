@@ -1,6 +1,7 @@
 'use strict';
 
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -22,7 +23,7 @@ UserSchema
   .virtual('password')
   .set(function(password){
     this._password = password;
-    this.salt = this.makeSalt();
+    this.salt = bcrypt.genSaltSync();
     this.hashedPassword = this.encryptPassword(password);
   })
   .get(function(){
@@ -99,16 +100,12 @@ UserSchema
 UserSchema.methods = {
   //Check if the passwords are the same
   authenticate: function(plainText){
-    return this.encryptPassword(plainText) === this.hashedPassword;
-  },
-  //Make random salt
-  makeSalt:function () {
-    return crypto.randomBytes(16).toString('base64');
-  },
+    return bcrypt.compareSync(this.encryptPassword(plainText), this.hashedPassword);
+  },  
   encryptPassword:function (password) {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
-    return crypto.pbkdf2Sync(password,salt,10000,64).toString('base64');
+    return bcrypt.hashSync(password, salt);
   }
 };
 
