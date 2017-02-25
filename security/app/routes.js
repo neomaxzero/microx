@@ -1,6 +1,6 @@
 const controller = require('./controller');
 
 const endpoints = [
-    { type: 'POST', path: '/user', handler: controller.create }
+    { method: 'POST', path: '/', config: controller.create }
 ];
 module.exports = endpoints;

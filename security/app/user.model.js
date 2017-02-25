@@ -12,7 +12,7 @@ var UserSchema = new Schema({
   role:{
     type: String,
     default:'user'
-  },  
+  },
   hashedPassword:String,
   provider:String,
   salt:String
@@ -101,7 +101,7 @@ UserSchema.methods = {
   //Check if the passwords are the same
   authenticate: function(plainText){
     return bcrypt.compareSync(this.encryptPassword(plainText), this.hashedPassword);
-  },  
+  },
   encryptPassword:function (password) {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
@@ -109,4 +109,4 @@ UserSchema.methods = {
   }
 };
 
-module.exports = mongoose.model('User',UserSchema);
+module.exports = mongoose.model('User', UserSchema);

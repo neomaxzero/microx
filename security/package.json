@@ -4,8 +4,11 @@
   "description": "authentication service",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^1.0.2",
+    "bluebird": "^3.4.7",
     "boom": "^4.2.0",
     "hapi": "^16.1.0",
+    "hapi-auth-jwt2": "^7.2.4",
     "joi": "^10.2.2",
     "mongoose": "^4.8.4"
   },
