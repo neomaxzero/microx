@@ -16,18 +16,29 @@ exports.create = {
         }
     },
     handler: (request, reply) => {
-        // const user = new User(request.payload);
-        // user.save((err, user) => {
-        //     if (!err) {
-        //         reply(user).created('/user/' + user.id);
-        //     } else {
-        //         if ( err.code === 11000 || err.code === 11001) {
-        //             reply(Boom.forbidden());
-        //         } else {
-        //             console.error('CODE <> 11000 or 11001')
-        //             reply(Boom.forbidden(err))
-        //         }
-        //     }
-        // })
+        const user = new User(request.payload);
+        user.save((err, user) => {
+            if (!err) {
+                reply().created('/user/' + user.id);
+            } else {
+                if ( err.code === 11000 || err.code === 11001) {
+                    reply(Boom.forbidden());
+                } else {
+                    console.error('CODE <> 11000 or 11001')
+                    reply(Boom.forbidden(err))
+                }
+            }
+        })
     }
+}
+
+exports.getAll = {
+  handler: (request, reply) => {
+    User.find({}, (err, users) => {
+      if (err)
+        throw err;
+
+      reply(users);
+    });
+  }
 }

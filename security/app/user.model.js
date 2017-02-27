@@ -104,8 +104,9 @@ UserSchema.methods = {
   },
   encryptPassword:function (password) {
     if (!password || !this.salt) return '';
-    var salt = new Buffer(this.salt, 'base64');
-    return bcrypt.hashSync(password, salt);
+    console.log('this.salt', this.salt)
+    // var salt = new Buffer(this.salt, 'base64');
+    return bcrypt.hashSync(password, this.salt);
   }
 };
 
