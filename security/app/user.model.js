@@ -6,12 +6,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-  username:{ type: String, lowercase: true },
+  username: { type: String, lowercase: true },
   name: String,
   email: String,
-  role:{
+  role: {
     type: String,
-    default:'user'
+    default: 'user'
   },
   hashedPassword:String,
   provider:String,
